@@ -12,5 +12,12 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return 'Api Connected';
 });
+
+$router->get('/hello', 'ApiController@getApi');
+
+$router->get('/code/{cep}', 'ApiController@getGeoCode');
+
+$router->get('/route/{cep_origem}/{cep_destino}', 'RouteController@showRoute');
+$router->get('/testroute', 'RouteController@route');
