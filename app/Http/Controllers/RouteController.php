@@ -16,6 +16,8 @@ class RouteController extends Controller
         $response['origem'] = $geocode->getCodeFromCep($request['cep_origem']);
         $response['destino'] = $geocode->getCodeFromCep($request['cep_destino']);
 
+        $response['route'] = $geocode->route($response['origem'], $response['destino']);
+
         return response()->json($response);
     }
 
@@ -25,6 +27,6 @@ class RouteController extends Controller
 
         $response = $geocode->route();
 
-        //var_dump($response);
+        var_dump($response);
     }
 }

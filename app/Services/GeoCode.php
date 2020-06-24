@@ -9,7 +9,7 @@ use App\Services\ViaCep;
 class Geocode 
 {   
     private $keys = [];
-    private $baseUrl = 'https://geocoder.api.here.com/6.2/';
+    private $baseUrl = 'https://geocoder.ls.hereapi.com/6.2/';
     private $routeUrl = 'https://route.ls.hereapi.com/routing/7.2/';
 
 
@@ -31,21 +31,20 @@ class Geocode
 
         $response['dataCep'] = json_decode($res);
 
-        $url = $this->baseUrl.'geocode.json?app_id='.$this->keys['geocode_app_id'].'&app_code='.$this->keys['geocode_app_code'].'&searchtext='.$cep;
+        $url = $this->baseUrl.'geocode.json?apiKey='.$this->keys['route_api_key'].'&searchtext='.$cep;
 
         $rawCodeResponse = Http::get($url);
 
-        $response['geoCode'] = json_decode($rawCodeResponse);
+        $response['geoCode'] = $rawCodeResponse['Response']['View'][0]['Result'][0]['Location']['NavigationPosition'][0];
         
-        echo $url;
+        return $response;
     }
 
-    public function route()
+    public function route($origem, $destino)
     {   
-        //$res = Http::get($this->routeUrl.'calculateroute.json?apiKey='.$this->keys['route_api_key'].'&waypoint0=geo!52.5,13.4&waypoint1=geo!52.5,13.45&mode=fastest;car;traffic:disabled');
+        $res = Http::get($this->routeUrl.'calculateroute.json?apiKey='.$this->keys['route_api_key'].'&waypoint0=geo!'.$origem['geoCode']['Latitude'].','.$origem['geoCode']['Longitude'].'&waypoint1=geo!'.$destino['geoCode']['Latitude'].','.$destino['geoCode']['Longitude'].'&mode=fastest;car;traffic:disabled');
 
-        //return json_decode($res);
+        return json_decode($res);
 
-        var_dump($this->keys); //TODO = Definir Uso das API's KEYS dentro da aplicação
     }
 }
