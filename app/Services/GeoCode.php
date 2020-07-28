@@ -35,6 +35,9 @@ class Geocode
 
         $rawCodeResponse = Http::get($url);
 
+        if(isset(json_decode($rawCodeResponse)->error)) 
+            throw new \Exception('Credenciais HERE MAPS inválidas!', 23);
+
         $response['geoCode'] = $rawCodeResponse['Response']['View'][0]['Result'][0]['Location']['NavigationPosition'][0];
         
         return $response;
