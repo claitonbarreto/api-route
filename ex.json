@@ -1,0 +1,22 @@
+{
+    "origem": {
+        "CEP": 25265080,
+        "logradouro" : "Rua Capanema",
+        "bairro": "",
+        "cidade": "",
+        "estado": "",
+        "longitude": "",
+        "latitude": ""
+    },
+    "destino": {
+        
+    },
+    "rota": {
+        "ponto_origem": {},
+        "ponto_destino": {},
+        "distancia": "", //Metros ou Km ou Raw respose ?
+        "veiculo": "",
+        "tempo_medio": ""
+    },
+    "error": {}
+}
